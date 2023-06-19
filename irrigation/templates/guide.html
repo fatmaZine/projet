@@ -1,0 +1,86 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plant Details</title>
+    <style>
+        body {
+            background-color: #f2f2f2;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            margin-top: 30px;
+        }
+
+        .card {
+            width: 300px;
+            border-radius: 5px;
+            margin: 10px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-img-top {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 5px 5px 0 0;
+        }
+
+        .card-body {
+            padding: 10px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #85ad50;
+            margin-bottom: 5px;
+        }
+
+        .card-text {
+            font-size: 14px;
+            color: #000000;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        {% include "mymenu.html" %}
+    </nav>
+    <main>
+        <section id="contact">
+            <div class="container">
+                {% for plant in plants %}
+                <div class="card">
+                    <img src="{{ STATIC_URL }}irrigation\irrigation\static\images\Amandier.jpg" alt="Image" class="card-img-top">
+
+                    <div class="card-body">
+                        <h5 class="card-title">{{ plant.name }}</h5>
+                        <p class="card-text">Ideal Humidity: {{ plant.ideal_humidity }}</p>
+                        <p class="card-text">Ideal Temperature: {{ plant.ideal_temperature }}</p>
+                        <p class="card-text">Irrigation Frequency: {{ plant.irrigation_frequency }}</p>
+                        <p class="card-text">pH Level: {{ plant.ph_level }}</p>
+                        <p class="card-text">Plant Type: {{ plant.plant_type }}</p>
+                        <p class="card-text">Planting Date: {{ plant.planting_date }}</p>
+                        <p class="card-text">Tree Spacing: {{ plant.tree_spacing }}</p>
+                        <p class="card-text">Trees per Hectare: {{ plant.trees_per_hectare }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
+</body>
+</html>

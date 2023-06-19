@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Ajouter une zone</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+  <style>
+    body {
+      background-color: #f2f2f2;
+    }
+
+    .container {
+      margin-top: 50px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .card {
+      background-color: #fff;
+      border-radius: 5px;
+      padding: 20px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      width: 400px;
+    }
+
+    .card-title {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    input[type="text"],
+    select {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    input[type="file"] {
+      margin-top: 5px;
+    }
+
+    button[type="submit"] {
+      background-color: #008000;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 20px;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #006400;
+    }
+  </style>
+</head>
+<body>
+
+
+<div class="container">
+  <div class="card">
+    <div class="card-title">Ajouter une zone</div>
+    <form method="post">
+      {% csrf_token %}
+      {% if messages %}
+      <ul class="messages">
+        {% for message in messages %}
+        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+      <div class="form-group">
+        <label for="id_name">Nom de la zone:</label>
+        {{ form.name }}
+      </div>
+      <div class="form-group">
+        <label for="id_surface">Surface (en hectares):</label>
+        {{ form.surface }}
+      </div>
+      <div class="form-group">
+        <label for="id_type_plante">Type de plante:</label>
+        {{ form.type_plante }}
+      </div>
+      <div class="form-group">
+        <label for="id_type_plantation">Type de plantation:</label>
+        {{ form.type_plantation }}
+      </div>
+      <div class="form-group">
+        <label for="id_nombre_portes">Nombre de portes:</label>
+        {{ form.nombre_portes }}
+      </div>
+      <div class="form-group">
+        <label for="id_image">Image:</label>
+        <input type="file" id="id_image" name="image">
+      </div>
+      <button type="submit">Ajouter la zone</button>
+    </form>
+  </div>
+</div>
+</body>
+</html>
+
+
+

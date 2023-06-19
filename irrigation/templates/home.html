@@ -1,0 +1,164 @@
+{% block start %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body {
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .card {
+            max-width: 600px;
+            background-color: #ffffff;
+            border: 1px solid #eaeaea;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .card p {
+            color: #333333;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .card img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+        }
+        
+        .card-body {
+            flex-direction: column;
+        }
+        
+        .card-title {
+            font-size: 24px;
+            color: #008080;
+            margin-bottom: 10px;
+        }
+        
+        .card-subtitle {
+            font-size: 18px;
+            color: #666666;
+            margin-bottom: 20px;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+        }
+        
+        .footer p {
+            font-size: 14px;
+            color: #999999;
+            margin: 0;
+        }
+        .btn-primary {
+            background-color: #008000;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            text-decoration: none;
+        }
+        .btn-action {
+            width: 150px; /* Ajustez la valeur selon vos besoins */
+        }
+
+        .btn-primary:hover {
+            background-color: #006400;
+        }
+       .button-group {
+            margin-top: 70px;
+            text-align: right;
+        }
+
+        .button-29 {
+            /* ... Votre CSS actuel ... */
+            width: 150px;
+        }
+        
+        .button-29:focus {
+            box-shadow: #bbe693 0 0 0 1.5px inset, rgba(45, 35, 66, .4) 0 2px 4px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #bbe693 0 -3px 0 inset;
+        }
+        
+        .button-29:hover {
+            box-shadow: rgba(45, 35, 66, .4) 0 4px 8px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #bbe693 0 -3px 0 inset;
+            transform: translateY(-2px);
+        }
+        
+        .button-29:active {
+            box-shadow: #bbe693 0 3px 7px inset;
+            transform: translateY(2px);
+        }        
+    </style>
+    <title>Système d'irrigation automatique</title>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-database.js"></script>
+</head>
+<body>
+<script>
+    var firebaseConfig = {
+    apiKey: "AIzaSyD7wTxC356IRKTDnFURCF21J9e6j1bOZx0",
+    authDomain: "irrigatic-177d1.firebaseapp.com",
+    databaseURL: "https://irrigatic-177d1-default-rtdb.firebaseio.com",
+    projectId: "irrigatic-177d1",
+    storageBucket: "irrigatic-177d1.appspot.com",
+    messagingSenderId: "147064066566",
+    appId: "1:147064066566:web:211b088b2fced41e7da987",
+    measurementId: "G-HJKRB56GZF"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    var database = firebase.database();
+  </script>
+<main>
+    <nav>
+        {% include "mymenu.html" %}
+    </nav>
+    
+    <div class="button-group">
+            <button class="button-29 btn-action" type="button">Modifier profile</button>
+        </div>
+    <div class="container">
+        <div class="card">
+            <img src="{% static 'irrigation\static\images\home.jpg' %}" alt="Image d'accueil">
+            <div class="card-body">
+                <h2 class="card-title">Bienvenue {{ user.name }}</h2>
+                <h4 class="card-subtitle">Irrigatic - Système d'irrigation automatique</h4>
+                <p>Notre système d'irrigation automatique aide les agriculteurs et les particuliers à maintenir leurs cultures en bonne santé tout en préservant l'environnement. Grâce à nos capteurs de sol avancés, nous mesurons l'humidité du sol et fournissons la quantité d'eau nécessaire pour maintenir les plantes en bonne santé, sans gaspiller d'eau.</p>
+                <p>Notre solution est facile à utiliser et à entretenir. Vous pouvez ajuster les paramètres d'arrosage en fonction de vos besoins spécifiques à l'aide de notre application mobile conviviale et surveiller l'état de votre jardin en temps réel.</p>
+            </div>
+        </div>
+    </div>
+ <footer class="footer">
+            <p>&copy; 2023 | Irrigatic</p>
+        </footer>
+</main>
+
+</body>
+</html>
+{% endblock %}
+
+
+
+
+
+

@@ -1,0 +1,65 @@
+{
+  "farms": {
+    "-NY-aGSI64qCVNuwG9ns": {
+      "farm_name": "Default Farm Name",
+      "location": "gabes",
+      "surface": 2,
+      "user": "rRogS733pCQaNKHNyplci5HB7dF3"
+    },
+    "-NY-nVW_tRJnDhPnWGpL": {
+      "farm_name": "fddd",
+      "location": "tunis",
+      "surface": 5,
+      "user": "rRogS733pCQaNKHNyplci5HB7dF3"
+    },
+    "-NY-ti1t-7W3QZI-QDLu": {
+      "farm_name": "f1",
+      "location": "tunis",
+      "surface": 5,
+      "user": "rRogS733pCQaNKHNyplci5HB7dF3"
+    },
+    "-NY-u7FgBfEwaQ6AEwNQ": {
+      "farm_name": "b1",
+      "location": "tunis",
+      "surface": 4,
+      "user": "HMaZnCQG4eaW5pCIEr4iw4A6x9h1"
+    }
+  },
+  "plants": {
+    "-NXGtD0jpkITsLRmJzLX": "{\"ideal_humidity\": 50.0, \"ideal_temperature\": 15.0, \"irrigation_frequency\": 4, \"name\": \"Amandier\", \"ph_level\": 8.0, \"plant_type\": \"arbres\", \"planting_date\": \"2023-12-02\", \"tree_spacing\": 6.0, \"trees_per_hectare\": 270.0}"
+  },
+  "users": {
+    "HMaZnCQG4eaW5pCIEr4iw4A6x9h1": {
+      "date": "2023-06-03",
+      "email": "b@gmail.com",
+      "genre": "female",
+      "name": "ghfhg",
+      "status": "1",
+      "tel": "25258256"
+    },
+    "bLMgkT4ldGOfQxkQS0PY2dWAgrh2": {
+      "date": "2023-05-19",
+      "email": "fatma.zinelabidine@caustaza.com",
+      "genre": "female",
+      "name": "fatma",
+      "status": "1",
+      "tel": "50888470"
+    },
+    "rRogS733pCQaNKHNyplci5HB7dF3": {
+      "date": "2023-05-06",
+      "email": "aaa@gmail.com",
+      "genre": "male",
+      "name": "aaa",
+      "status": "1",
+      "tel": "25258256"
+    },
+    "zkjz44FTbGM2XSCLaebBCTSDvY52": {
+      "date": "2023-06-23",
+      "email": "admin@caustaza.com",
+      "genre": "male",
+      "name": "admin",
+      "status": "1",
+      "tel": "25258256"
+    }
+  }
+}
