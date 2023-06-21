@@ -277,6 +277,24 @@ def zones_view(request: HttpRequest, farm_id):
 
 
 
+def create_sensors(zone):
+    # Référence à la base de données Firebase
+    ref = db.reference('/')
+
+    # Création d'un nouvel enregistrement pour le capteur de température
+    capteur_temperature = {
+        'zone_id': zone.zone_id,
+        'valeur': 0.0  # Valeur initiale du capteur de température
+    }
+    ref.child('capteur_temperature').push(capteur_temperature)
+
+    # Création d'un nouvel enregistrement pour le capteur d'humidité
+    capteur_humidite = {
+        'zone_id': zone.zone_id,
+        'valeur': 0.0  # Valeur initiale du capteur d'humidité
+    }
+    ref.child('capteur_humidite').push(capteur_humidite)
+
 
 import json
 
@@ -314,13 +332,17 @@ def ajouter_zone(request: HttpRequest, farm_id):
             "type_plantation": zone.type_plantation,
             "nombre_portes": zone.nombre_portes,
         }
-        db.reference('/zones').push(zone_data)
+        zone_ref=db.reference('/zones').push(zone_data)
+        create_sensors(zone_ref.key)
         return redirect('zones', farm_id)
 
     context = {
         'form': form
     }
     return render(request, 'ajouter_zone.html', context)
+
+
+
 
 from django.shortcuts import render, get_object_or_404
 from .models import Zone, CapteurTemperature, Plant
