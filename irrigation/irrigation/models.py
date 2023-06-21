@@ -59,6 +59,7 @@ class Plant(models.Model):
     plant_type = models.CharField(max_length=100)
     planting_date = models.DateField()
     tree_spacing = models.FloatField()
+    nbre_valve = models.IntegerField(null=False, blank=False , default='2')
     trees_per_hectare = models.FloatField()
     image = models.ImageField(upload_to='images/', default='irrigation\irrigation\images\Amandier.jpg')
 
@@ -67,21 +68,25 @@ class Plant(models.Model):
         return self.name
 
 class PlantForm(forms.ModelForm):
+    def clean_name(self):
+        name = self.cleaned_data.get('name')
+        if Plant.objects.filter(name=name).exists():
+            raise forms.ValidationError("Ce nom de plante est déjà utilisé.")
+        return name
+
     class Meta:
         model = Plant
         fields = '__all__'
 
-    def clean_plant_id(self):
-        plant_id = self.cleaned_data.get('plant_id')
-        if Plant.objects.filter(plant_id=plant_id).exists():
-            raise forms.ValidationError("Cet ID de plante est déjà utilisé.")
-        return plant_id
+
+
 
 class Zone(models.Model):
     zone_id = models.BigAutoField(primary_key=True, default='1')
     farm = models.ForeignKey(Farm, on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
     surface = models.DecimalField(max_digits=10, decimal_places=2)
+    nom_plante = models.CharField(max_length=255, default='plante' )
     TYPE_PLANTE_CHOICES = [
         ('herbes', 'Herbes'),
         ('buisson', 'Buisson'),
@@ -103,4 +108,13 @@ class Zone(models.Model):
 class ZoneForm(forms.ModelForm):
     class Meta:
         model = Zone
-        fields = ['name', 'surface','type_plante','type_plantation','nombre_portes']
+        fields = ['name', 'surface','nom_plante','type_plante','type_plantation','nombre_portes']
+
+
+class CapteurTemperature(models.Model):
+    zone = models.ForeignKey(Zone, on_delete=models.CASCADE)
+    valeur = models.DecimalField(max_digits=5, decimal_places=2)
+
+class CapteurHumidite(models.Model):
+    zone = models.ForeignKey(Zone, on_delete=models.CASCADE)
+    valeur = models.DecimalField(max_digits=5, decimal_places=2)

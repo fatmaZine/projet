@@ -176,6 +176,7 @@ def ajouter_plante(request):
                 'planting_date': plant.planting_date.isoformat(),
                 'tree_spacing': plant.tree_spacing,
                 'trees_per_hectare': plant.trees_per_hectare,
+                'nbre_des_valves':plant.nbre_valve,
             }
             
             serialized_plant_data = json.dumps(plant_data)
@@ -308,6 +309,7 @@ def ajouter_zone(request: HttpRequest, farm_id):
             "farm_id": farm_id,
             "name": zone.name,
             "surface": float(zone.surface),
+            "nom_plante": zone.nom_plante,
             "type_plante": zone.type_plante,
             "type_plantation": zone.type_plantation,
             "nombre_portes": zone.nombre_portes,
@@ -319,4 +321,48 @@ def ajouter_zone(request: HttpRequest, farm_id):
         'form': form
     }
     return render(request, 'ajouter_zone.html', context)
+
+from django.shortcuts import render, get_object_or_404
+from .models import Zone, CapteurTemperature, Plant
+def afficher_temperature_humidite(request, zone_id):
+    zone = get_object_or_404(Zone, pk=zone_id)
+    capteurs_temperature = CapteurTemperature.objects.filter(zone=zone)
+    plant = Plant.objects.get(name=zone.nom_plante)
+
+    temperature_ideale_plante = plant.ideal_temperature
+    humidite_ideale_plante = plant.ideal_humidity
+
+    # Récupérer les données de température depuis Firebase Realtime Database
+    temperature_ref = db.reference('zones/{}/capteur_temperature'.format(zone_id))
+    temperature_snap = temperature_ref.get()
+    if temperature_snap:
+        temperatures = temperature_snap.values()
+    else:
+        temperatures = []
+
+    # Récupérer les données d'humidité depuis Firebase Realtime Database
+    humidite_ref = db.reference('zones/{}/capteur_humidite'.format(zone_id))
+    humidite_snap = humidite_ref.get()
+    if humidite_snap:
+        humidites = humidite_snap.values()
+    else:
+        humidites = []
+
+    # Vérifier les conditions pour activer les boutons de valves
+    is_temperature_above_ideale = any(temp > temperature_ideale_plante for temp in temperatures)
+    is_humidite_below_ideale = any(humid < humidite_ideale_plante for humid in humidites)
+
+    context = {
+        'zone': zone,
+        'capteurs_temperature': capteurs_temperature,
+        'temperature_ideale_plante': temperature_ideale_plante,
+        'humidite_ideale_plante': humidite_ideale_plante,
+        'temperatures': temperatures,
+        'humidites': humidites,
+        'is_temperature_above_ideale': is_temperature_above_ideale,
+        'is_humidite_below_ideale': is_humidite_below_ideale
+    }
+
+    return render(request, 'dash.html', context)
+
 
