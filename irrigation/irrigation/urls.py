@@ -18,6 +18,8 @@ from django.urls import path, include
 from . import views
 from django.conf.urls.static import static
 from django.conf import settings
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.SignIn, name='signin'),
@@ -30,7 +32,7 @@ urlpatterns = [
     path('ajouter_ferme/', views.ajouter_ferme, name='ajouter_ferme'),
     path('supprimer_ferme/<str:farm_id>/', views.supprimer_ferme, name='supprimer_ferme'),
     path('guide/', views.guide, name='guide'),
-   
+    path('dash/<str:farm_id>/', views.dash, name='dash'),
     path('admin_home/', views.admin_home, name='admin_home'),
     path('ajouter-plante/', views.ajouter_plante, name='ajouter_plante'),
     path('zones/<str:farm_id>/', views.zones_view, name='zones'),

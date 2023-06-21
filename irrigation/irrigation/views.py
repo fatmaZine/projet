@@ -296,6 +296,20 @@ def create_sensors(zone_id):
     ref.child('capteur_humidite').push(capteur_humidite)
 
 
+def dash(request: HttpRequest, farm_id):
+    capteur_humidite_ref = db.reference('/capteur_humidite')
+    capteur_temperature_ref = db.reference('/capteur_temperature')
+
+    capteur_humidite_values = capteur_humidite_ref.get()
+    capteur_temperature_values = capteur_temperature_ref.get()
+
+    context = {
+        'farm_id': farm_id,
+        'capteur_humidite_values': capteur_humidite_values,
+        'capteur_temperature_values': capteur_temperature_values,
+    }
+
+    return render(request, 'dash.html', context)
 
 import json
 

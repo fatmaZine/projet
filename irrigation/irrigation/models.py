@@ -29,6 +29,7 @@ class Farm(models.Model):
     id = models.CharField(max_length=255, primary_key=True)
     User = models.ForeignKey(User, on_delete=models.CASCADE)  
     surface = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+    water_pump = models.DecimalField(max_digits=2, decimal_places=2, default=0)
     def __str__(self):
         return self.farm_name
     
