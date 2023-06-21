@@ -277,23 +277,24 @@ def zones_view(request: HttpRequest, farm_id):
 
 
 
-def create_sensors(zone):
+def create_sensors(zone_id):
     # Référence à la base de données Firebase
     ref = db.reference('/')
 
     # Création d'un nouvel enregistrement pour le capteur de température
     capteur_temperature = {
-        'zone_id': zone.zone_id,
+        'zone_id': zone_id,
         'valeur': 0.0  # Valeur initiale du capteur de température
     }
     ref.child('capteur_temperature').push(capteur_temperature)
 
     # Création d'un nouvel enregistrement pour le capteur d'humidité
     capteur_humidite = {
-        'zone_id': zone.zone_id,
+        'zone_id': zone_id,
         'valeur': 0.0  # Valeur initiale du capteur d'humidité
     }
     ref.child('capteur_humidite').push(capteur_humidite)
+
 
 
 import json
@@ -334,6 +335,8 @@ def ajouter_zone(request: HttpRequest, farm_id):
         }
         zone_ref=db.reference('/zones').push(zone_data)
         create_sensors(zone_ref.key)
+
+
         return redirect('zones', farm_id)
 
     context = {
