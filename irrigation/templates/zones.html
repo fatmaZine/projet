@@ -143,6 +143,7 @@
     </style>
   </head>
   
+<<<<<<< HEAD
   <body>
     <main>
       <section id="order">
@@ -162,6 +163,31 @@
                   <h6>Type de plantation: {{ zone_info.type_plantation|title }}</h6>
                   <h6>Nombre de portes: {{ zone_info.nombre_portes }}</h6>
                   <a href="{% url 'dash' farm_id=farm_id zone_id=zone_id %}">Details</a>
+=======
+   <main>
+        <section id="order">
+            <h1>Vos Zones</h1>
+            <a href="{% url 'ajouter_zone' farm_id %}" class="btn btn-primary">
+                <i class="bi bi-plus-square-fill">Ajouter une zone</i> 
+            </a>
+            <div class="zone-list">
+                {% for zone_id, zone_info in zones.items %}
+                <div class="card-body">
+                    <div class="row">
+                        <div class="zone-details">
+                            <h6>Name: {{ zone_info.name }}</h6>
+                            <h6>Surface: {{ zone_info.surface }} m²</h6>
+                            <h6>Type de plante: {{ zone_info.type_plante|title }}</h6>
+                            <h6>Type de plantation: {{ zone_info.type_plantation|title}}</h6>
+                            <h6>Nombre de portes: {{ zone_info.nombre_portes }}</h6>
+                            
+                            {% comment %} <a href="{% url 'supprimer_zone' zone.zone_id %}">Supprimer</a> {% endcomment %}
+
+                            <a href="{% url 'dash' zone_id=zone_id %}">Details</a> {% comment %} dash {% endcomment %}
+                            
+                        </div>
+                    </div>
+>>>>>>> f0870bf730a73acf4d01eb4ee6f54b5c30ec5a31
                 </div>
               </div>
             </div>

@@ -301,6 +301,9 @@ def create_sensors(zone_id):
     }
     ref.child('capteur_humidite').push(capteur_humidite)
 
+def create_water_pumps(zone_id):
+    # Référence à la base de données Firebase
+    ref = db.reference('/')
 
 def dash(request: HttpRequest, farm_id, zone_id):
     ref = db.reference('/')
@@ -311,13 +314,55 @@ def dash(request: HttpRequest, farm_id, zone_id):
     capteur_temperature_values = capteur_temperature_ref.child(farm_id).child(zone_id).get()
 
     context = {
-        'farm_id': farm_id,
+        'farm_id': farm_id,}
+    # Create water pump 1
+    water_pump1 = {
+        'zone_id': zone_id,
+        'is_on': False  # Initial status of water pump 1
+    }
+    ref.child('water_pumps').push(water_pump1)
+
+    # Create water pump 2
+    water_pump2 = {
+        'zone_id': zone_id,
+        'is_on': False  # Initial status of water pump 2
+    }
+    ref.child('water_pumps').push(water_pump2)
+
+
+
+def dash(request: HttpRequest, zone_id):
+    capteur_humidite_ref = db.reference('/capteur_humidite')
+    capteur_temperature_ref = db.reference('/capteur_temperature')
+    water_pumps_ref = db.reference('/water_pumps')
+
+    capteur_humidite_values = capteur_humidite_ref.order_by_child('zone_id').equal_to(zone_id).get()
+    capteur_temperature_values = capteur_temperature_ref.order_by_child('zone_id').equal_to(zone_id).get()
+
+    water_pumps = water_pumps_ref.get()
+
+    # Check the temperature value and update water pump status
+    for _, capteur_temperature in capteur_temperature_values.items():
+        temperature = capteur_temperature['valeur']
+        zone_id = capteur_temperature['zone_id']
+        water_pump = water_pumps.get(zone_id)
+        if water_pump:
+            if temperature > 30:
+                # Update the water pump status to True (ON)
+                water_pumps_ref.child(zone_id).update({'is_on': True})
+            else:
+                # Update the water pump status to False (OFF)
+                water_pumps_ref.child(zone_id).update({'is_on': False})
+
+    context = {
         'zone_id': zone_id,
         'capteur_humidite_values': capteur_humidite_values,
         'capteur_temperature_values': capteur_temperature_values,
+        'water_pumps': water_pumps,
     }
 
     return render(request, 'dash.html', context)
+
 
 
 
@@ -359,6 +404,7 @@ def ajouter_zone(request: HttpRequest, farm_id):
         }
         zone_ref=db.reference('/zones').push(zone_data)
         create_sensors(zone_ref.key)
+        create_water_pumps(zone_ref.key)
 
 
         return redirect('zones', farm_id)
@@ -373,6 +419,7 @@ def ajouter_zone(request: HttpRequest, farm_id):
 
 from django.shortcuts import render, get_object_or_404
 from .models import Zone, CapteurTemperature, Plant
+
 def afficher_temperature_humidite(request, zone_id):
     zone = get_object_or_404(Zone, pk=zone_id)
     capteurs_temperature = CapteurTemperature.objects.filter(zone=zone)

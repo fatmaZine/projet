@@ -33,6 +33,7 @@ urlpatterns = [
     path('supprimer_ferme/<str:farm_id>/', views.supprimer_ferme, name='supprimer_ferme'),
     path('guide/', views.guide, name='guide'),
     path('farm/<str:farm_id>/zone/<str:zone_id>/', views.dash, name='dash'),
+    path('dash/<str:zone_id>/', views.dash, name='dash'),
     path('admin_home/', views.admin_home, name='admin_home'),
     path('ajouter-plante/', views.ajouter_plante, name='ajouter_plante'),
     path('zones/<str:farm_id>/', views.zones_view, name='zones'),
