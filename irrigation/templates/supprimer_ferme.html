@@ -1,0 +1,11 @@
+{% block content %}
+  <h1>Supprimer la ferme</h1>
+  
+  <p>Voulez-vous vraiment supprimer la ferme "{{ farm.farm_name }}"?</p>
+  
+  <form method="post" action="{% url 'supprimer_ferme' farm_id=farm.pk %}">
+    {% csrf_token %}
+    <button type="submit">Confirmer</button>
+  </form>
+{% endblock %}
+

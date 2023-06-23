@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Ajouter une ferme</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+  <style>
+    body {
+      background-color:#f2f2f2;
+    }
+
+    .container {
+      margin-top: 50px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .card-horizontal {
+      display: flex;
+      flex-direction: row;
+      background-color: #85ad50;
+      border-radius: 5px;
+      padding: 20px;
+      color: #fff;
+      width: 400px;
+      height: 400px;
+    }
+
+    .card-img {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 5px;
+      margin-right: 20px;
+    }
+
+    .card-body {
+      flex: 1;
+    }
+
+    .card-title {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .btn-primary {
+      background-color: #008000;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 20px;
+      text-decoration: none;
+    }
+
+    .btn-primary:hover {
+      background-color: #006400;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="card-horizontal">
+     
+      <div class="card-body">
+        <div class="card-title">Ajouter une ferme</div>
+        <form method="post" class="needs-validation">
+          {% csrf_token %}
+          <div class="form-group row">
+            <label for="id_farm_name" class="col-sm-4 col-form-label">Nom de la ferme:</label>
+            <div class="col-sm-8">
+              {{ form.farm_name }}
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="id_location" class="col-sm-4 col-form-label">Lieu:</label>
+            <div class="col-sm-8">
+              {{ form.location }}
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="id_surface" class="col-sm-4 col-form-label">Surface (en hectares):</label>
+            <div class="col-sm-8">
+              {{ form.surface }}
+            </div>
+          </div>
+          
+  
+          <button type="submit" class="btn btn-primary">Ajouter</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

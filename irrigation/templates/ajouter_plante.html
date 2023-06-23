@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Ajouter une plante</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+  <style>
+    body {
+      background-color: #f2f2f2;
+    }
+
+    .container {
+      margin-top: 50px;
+    }
+
+    .card {
+      background-color: #fff;
+      border-radius: 5px;
+      padding: 20px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .title {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    .form-control[type="file"] {
+      margin-top: 5px;
+    }
+
+    .btn-success {
+      background-color: #008000;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 20px;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .btn-success:hover {
+      background-color: #006400;
+    }
+  </style>
+</head>
+<body>
+  <form method="post" action="{% url 'ajouter_plante' %}">
+    {% csrf_token %}
+    <div class="container">
+      <div class="card">
+        <div class="card-body">
+          <h1 class="title">Ajouter une plante</h1>
+          <div class="form-group">
+            <label for="id_ideal_humidity">Humidité idéale:</label>
+            <input type="text" class="form-control" id="id_ideal_humidity" name="ideal_humidity" required>
+          </div>
+          <div class="form-group">
+            <label for="id_ideal_temperature">Température idéale:</label>
+            <input type="text" class="form-control" id="id_ideal_temperature" name="ideal_temperature" required>
+          </div>
+          <div class="form-group">
+            <label for="id_irrigation_frequency">Fréquence d'irrigation:</label>
+            <input type="text" class="form-control" id="id_irrigation_frequency" name="irrigation_frequency" required>
+          </div>
+          <div class="form-group">
+            <label for="id_name">Nom de la plante:</label>
+            <input type="text" class="form-control" id="id_name" name="name" required>
+          </div>
+          <div class="form-group">
+            <label for="id_ph_level">Niveau de pH:</label>
+            <input type="text" class="form-control" id="id_ph_level" name="ph_level" required>
+          </div>
+          <div class="form-group">
+            <label for="id_plant_type">Type de plante:</label>
+            <input type="text" class="form-control" id="id_plant_type" name="plant_type" required>
+          </div>
+          <div class="form-group">
+            <label for="id_planting_date">Date de plantation:</label>
+            <input type="date" class="form-control" id="id_planting_date" name="planting_date" required>
+          </div>
+          <div class="form-group">
+            <label for="id_tree_spacing">Espacement des arbres:</label>
+            <input type="text" class="form-control" id="id_tree_spacing" name="tree_spacing" required>
+          </div>
+          <div class="form-group">
+            <label for="id_trees_per_hectare">Arbres par hectare:</label>
+            <input type="text" class="form-control" id="id_trees_per_hectare" name="trees_per_hectare" required>
+          </div>
+          <div class="form-group">
+            <label for="id_tree_spacing">nombre des valves:</label>
+            <input type="text" class="form-control" id="id_nbre_valve" name="nbre_valve" required>
+          </div>
+          <div class="form-group">
+            <label for="id_image">Image:</label>
+            <input type="file" class="form-control" id="id_image" name="image">
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-success">Ajouter</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</body>
+</html>

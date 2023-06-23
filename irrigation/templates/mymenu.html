@@ -1,0 +1,182 @@
+{% block start %}
+<!Doctype Html>
+<Html>  
+<Head>    
+
+<style type=text/css> 
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+h4 {
+    text-align: left;
+    color: #ffff;
+    }
+header {
+    width: 100%;
+    background-color: #85ad50;
+    position: fixed;
+    color: #fff;
+    padding: 0 20px;
+    box-shadow: 0 0 25px 0 green;
+}
+
+header nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+nav a.logo {
+    color: #fff;
+    font-size: 35px;
+    text-transform: uppercase;
+    font-weight: bold;
+    line-height: 60px;
+    cursor: pointer;
+    font-family: cursive;
+}
+
+nav ul {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: .5s;
+}
+
+nav ul li {
+    line-height: 60px;
+    margin: 0 5px;
+}
+
+nav ul a {
+    color: #fff;
+    font-size: 18px;
+    padding: 5px 13px;
+    text-transform: uppercase;
+    border-radius: 4px;
+    transition: .4s;
+}
+
+.active,nav ul a:hover {
+    background: #fbd2d7;
+    padding: 10px;
+    color: #000;
+}
+
+main {
+    width: 100%;
+    height: 100vh;
+    scroll-behavior: smooth;
+    overflow-y: scroll;
+}
+
+section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 80px;
+    font-size: 40px;
+}
+
+section#home {
+    background-color : #8FBC8F ;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    color: #12192c;
+}
+
+section#about {
+    background: url("https://cdn.pixabay.com/photo/2016/02/13/12/26/aurora-1197753__340.jpg");
+    color: #fff;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+section#menu {
+    background: url("https://cdn.pixabay.com/photo/2015/10/30/20/13/sunrise-1014712__340.jpg");
+    color: #fff;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+section#contact {
+    background-color: #f2f2f2;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    color: #fff;
+}
+
+section#order {
+    background-color: #f2f2f2;
+    background-repeat: repeat;
+    background-size: 100% 100%;
+    color: #12192c;
+    
+}
+
+.checkbtn {
+    cursor: pointer;
+    display: none;
+}
+
+#check {
+    display: none;
+}
+
+.credit a {
+    text-decoration: none;
+    color: crimson;
+    font-weight: 800;
+}
+
+.credit {
+    text-align: center;
+    font-family: Verdana,Geneva,Tahoma,sans-serif;
+    color: #FFF;
+    font-size: 15px;
+    padding-top: 500px;
+    position: fixed;
+}
+
+</style> 
+</Head>
+<Body> 
+<header>
+   
+<nav>
+<ul>
+<li>
+<a href="{% url 'home' %}"> Home </a>
+</li>
+
+<li>
+<a href="{% url 'mesespaces' %}"> MesEspaces </a>
+</li>
+<li> <a href="{% url 'guide' %}"> Guide </a>
+</li>
+
+<li>
+<a href="{% url 'logout' %}">Logout</a>
+</li>
+
+
+</ul>
+</nav>
+</header>
+
+ 
+
+
+
+
+</Body> 
+</Html>
+<!--<html>
+<div><li><a href="#" class="active">{{ User.username }} </a></li>| <li><a href="#" class="active">ABOUT</a></li> | <li><a href="#" class="active">PLantes</a></li>| <li><a href="#" class="active">MonJardin</a></li></div>
+</html>-->
+{% endblock %}
