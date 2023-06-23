@@ -2,7 +2,7 @@ from functools import reduce
 import os
 import uuid
 from collections import OrderedDict
-
+import firebase_admin
 from django.contrib import messages
 from django.contrib.auth import get_user_model, logout
 from django.contrib.auth.tokens import default_token_generator
@@ -13,11 +13,18 @@ from django.http.request import HttpRequest
 from django.urls import reverse
 from django.utils.encoding import force_str
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
-from firebase_admin import auth, firestore
+from firebase_admin import auth, firestore, db, credentials
 from werkzeug.security import check_password_hash
+from firebase_admin import initialize_app
+
+cred = credentials.Certificate('irrigation//firebase.json')
+firebase_admin.initialize_app(cred, {
+    'databaseURL': 'https://irrigatic-177d1-default-rtdb.firebaseio.com'
+})
 
 
-db = firestore.client()
+ref = db.reference('/')
+
 
 
 def HomePage(request):
@@ -278,38 +285,41 @@ def zones_view(request: HttpRequest, farm_id):
 
 
 def create_sensors(zone_id):
-    # Référence à la base de données Firebase
+   
     ref = db.reference('/')
 
-    # Création d'un nouvel enregistrement pour le capteur de température
+    
     capteur_temperature = {
         'zone_id': zone_id,
-        'valeur': 0.0  # Valeur initiale du capteur de température
+        'valeur': 0.0  
     }
     ref.child('capteur_temperature').push(capteur_temperature)
 
-    # Création d'un nouvel enregistrement pour le capteur d'humidité
     capteur_humidite = {
         'zone_id': zone_id,
-        'valeur': 0.0  # Valeur initiale du capteur d'humidité
+        'valeur': 0.0  
     }
     ref.child('capteur_humidite').push(capteur_humidite)
 
 
-def dash(request: HttpRequest, farm_id):
-    capteur_humidite_ref = db.reference('/capteur_humidite')
-    capteur_temperature_ref = db.reference('/capteur_temperature')
+def dash(request: HttpRequest, farm_id, zone_id):
+    ref = db.reference('/')
+    capteur_humidite_ref = ref('/capteur_humidite')
+    capteur_temperature_ref = ref('/capteur_temperature')
 
-    capteur_humidite_values = capteur_humidite_ref.get()
-    capteur_temperature_values = capteur_temperature_ref.get()
+    capteur_humidite_values = capteur_humidite_ref.child(farm_id).child(zone_id).get()
+    capteur_temperature_values = capteur_temperature_ref.child(farm_id).child(zone_id).get()
 
     context = {
         'farm_id': farm_id,
+        'zone_id': zone_id,
         'capteur_humidite_values': capteur_humidite_values,
         'capteur_temperature_values': capteur_temperature_values,
     }
 
     return render(request, 'dash.html', context)
+
+
 
 import json
 
