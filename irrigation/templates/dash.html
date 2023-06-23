@@ -134,12 +134,19 @@
         margin-top: 10px;
         font-family: Verdana,Geneva,Tahoma,sans-serif;
       }
+      .green {
+        color: green;
+      }
+      
+      .red {
+        color: red;
+      }
   </style>
 
   <body>
 
     <main>
-    <section id="order">
+      <section id="order">
         <h1>Dashboard</h1>
         <div class="container">
             <div class="card-body">
@@ -157,11 +164,21 @@
                                 <li>{{ capteur_temperature.valeur }}</li>
                             {% endfor %}
                         </ul>
+                        <h3>Water Pumps:</h3>
+                        <ul>
+                            {% for water_pump_id, water_pump in water_pumps.items %}
+                                <li>Water Pump Status: {% if water_pump.is_on %}<span class="green">On</span>{% else %}<span class="red">Off</span>{% endif %}</li>
+                            {% endfor %}
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+    
+    
+
+    
 </main>
 
     
