@@ -23,7 +23,7 @@
         }
 
         .card {
-            width: 300px;
+            width: 362px;
             border-radius: 5px;
             margin: 10px;
             background-color: #ffffff;
@@ -38,7 +38,7 @@
         }
 
         .card-body {
-            padding: 10px;
+            padding: 50px;
         }
 
         .card-title {
@@ -64,8 +64,8 @@
             <div class="container">
                 {% for plant in plants %}
                 <div class="card">
-                    <img src="{{ STATIC_URL }} \images\Amandier.jpg" alt="Image" class="card-img-top">
-
+                    <img src="{% static '\images\Amandier.jpg' %}" alt="Image d'accueil">
+            
                     <div class="card-body">
                         <h5 class="card-title">{{ plant.name }}</h5>
                         <p class="card-text">Ideal Humidity: {{ plant.ideal_humidity }}</p>
@@ -81,6 +81,9 @@
                 {% endfor %}
             </div>
         </section>
+        
+        
+        
     </main>
 </body>
 </html>

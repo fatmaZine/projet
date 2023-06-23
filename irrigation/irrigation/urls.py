@@ -39,6 +39,6 @@ urlpatterns = [
     path('zones/<str:farm_id>/', views.zones_view, name='zones'),
     path('zones/<str:farm_id>/ajouter_zone/', views.ajouter_zone, name='ajouter_zone'),
     path('zones/<int:zone_id>/temperature-humidite/', views.afficher_temperature_humidite, name='afficher_temperature_humidite'),
- 
+
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

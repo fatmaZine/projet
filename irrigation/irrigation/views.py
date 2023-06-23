@@ -146,13 +146,23 @@ from django.shortcuts import render
 from firebase_admin import db
 
 
+import json
+
 def guide(request):
-    plants = db.reference('plants').get().values()
+    plants_ref = db.reference('/plants')
+    plants_data = plants_ref.get()
+
+    plants = []
+    for key, value in plants_data.items():
+        plant = json.loads(value)
+        plant['id'] = key
+        plants.append(plant)
 
     context = {
         'plants': plants
     }
     return render(request, 'guide.html', context)
+
 
 
 import json
