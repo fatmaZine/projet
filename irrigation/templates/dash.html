@@ -167,7 +167,9 @@
                         <h3>Water Pumps:</h3>
                         <ul>
                             {% for water_pump_id, water_pump in water_pumps.items %}
-                                <li>Water Pump Status: {% if water_pump.is_on %}<span class="green">On</span>{% else %}<span class="red">Off</span>{% endif %}</li>
+                                {% if water_pump_id == zone_id %}
+                                    <li>Water Pump Status: {% if water_pump.is_on %}<span class="green">On</span>{% else %}<span class="red">Off</span>{% endif %}</li>
+                                {% endif %}
                             {% endfor %}
                         </ul>
                     </div>
@@ -176,6 +178,8 @@
         </div>
     </section>
     
+    
+
     
 
     
