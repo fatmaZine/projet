@@ -21,7 +21,7 @@
       display: flex;
     }
     
-    .card {
+    .zone-list {
       width: 300px;
       height: 300px;
       border-radius: 5px;
@@ -42,7 +42,7 @@
       box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
     }
     
-    .card-body {
+    .zone-list {
       padding: 5px;
     }
     .row {
@@ -52,7 +52,7 @@
       padding: 5px;
     }
     
-    .card-body p {
+    .card-body h3 {
       color: #3d3d3d;
       margin-bottom: 20px;
       font-size: 14px;
@@ -72,7 +72,7 @@
     .btn-group {
       display: flex;
     }
-    .button-29 {
+    .btn-primary {
       align-items: center;
       appearance: none;
       background-image: radial-gradient(100% 100% at 100% 0, #bbe693 0,#08330a 100%);
@@ -104,16 +104,16 @@
       width: 90%;
     }
     
-    .button-29:focus {
+    .btn-primary:focus {
       box-shadow: #bbe693 0 0 0 1.5px inset, rgba(45, 35, 66, .4) 0 2px 4px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #bbe693 0 -3px 0 inset;
     }
     
-    .button-29:hover {
+    .btn-primary:hover {
       box-shadow: rgba(45, 35, 66, .4) 0 4px 8px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #bbe693 0 -3px 0 inset;
       transform: translateY(-2px);
     }
     
-    .button-29:active {
+    .btn-primary:active {
       box-shadow: #bbe693 0 3px 7px inset;
       transform: translateY(2px);
     }
@@ -134,6 +134,36 @@
         margin-top: 10px;
         font-family: Verdana,Geneva,Tahoma,sans-serif;
       }
+    .btn-secondary{
+      align-items: center;
+      appearance: none;
+      background-image: radial-gradient(100% 100% at 100% 0, #bbe693 0,#08330a 100%);
+      border: 0;
+      border-radius: 6px;
+      box-shadow: rgba(45, 35, 66, .4) 0 2px 4px,rgba(45, 35, 66, .3) 0 7px 13px -3px,rgba(58, 65, 111, .5) 0 -3px 0 inset;
+      box-sizing: border-box;
+      color: #fff;
+      cursor: pointer;
+      display: inline-flex;
+      font-family: "JetBrains Mono",monospace;
+      height: 48px;
+      justify-content: center;
+      line-height: 1;
+      margin-left: 40px;
+      list-style: none;
+      overflow: hidden;
+      position: relative;
+      text-align: left;
+      text-decoration: none;
+      transition: box-shadow .15s,transform .15s;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+      white-space: nowrap;
+      will-change: box-shadow,transform;
+      font-size: 18px;
+      width: 190px;
+    }
   </style>
 
   <body>
@@ -141,7 +171,7 @@
    <main>
         <section id="order">
             <h1>Vos Zones</h1>
-            <a href="{% url 'ajouter_zone' farm_id %}" class="btn btn-primary">
+            <a href="{% url 'ajouter_zone' farm_id %}" class="btn btn-secondary">
                 <i class="bi bi-plus-square-fill">Ajouter une zone</i> 
             </a>
             <div class="zone-list">
@@ -157,7 +187,7 @@
                             
                             {% comment %} <a href="{% url 'supprimer_zone' zone.zone_id %}">Supprimer</a> {% endcomment %}
 
-                            <a href="{% url 'dash' zone_id=zone_id %}">Details</a> {% comment %} dash {% endcomment %}
+                            <a href="{% url 'dash' zone_id=zone_id %}" class="btn btn-primary">Details</a> {% comment %} dash {% endcomment %}
                             
                         </div>
                     </div>
