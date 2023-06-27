@@ -240,11 +240,6 @@ def ajouter_ferme(request):
     
 
 
-
-
-
-
-
 def supprimer_ferme(request, farm_id):
     farm_ref = db.reference('farms')
     
@@ -360,6 +355,7 @@ def create_sensors(zone_id):
     }
     ref.child('capteur_humidite').push(capteur_humidite)
 
+
 def create_water_pumps(zone_id):
     # Référence à la base de données Firebase
     ref = db.reference('/')
@@ -380,28 +376,37 @@ def create_water_pumps(zone_id):
 
 
 
+import json
+
+import json
+
 def dash(request: HttpRequest, zone_id):
     capteur_humidite_ref = db.reference('/capteur_humidite')
     capteur_temperature_ref = db.reference('/capteur_temperature')
     water_pumps_ref = db.reference('/water_pumps')
+    plants_ref = db.reference('/plants')
 
     capteur_humidite_values = capteur_humidite_ref.order_by_child('zone_id').equal_to(zone_id).get()
     capteur_temperature_values = capteur_temperature_ref.order_by_child('zone_id').equal_to(zone_id).get()
+    water_pumps = water_pumps_ref.order_by_child('zone_id').equal_to(zone_id).get()
 
-    water_pumps = water_pumps_ref.get()
+    plants_data = plants_ref.get()
+    print(plants_data)
 
-    # Check the temperature value and update water pump status
-    for _, capteur_temperature in capteur_temperature_values.items():
-        temperature = capteur_temperature['valeur']
-        zone_id = capteur_temperature['zone_id']
-        water_pump = water_pumps.get(zone_id)
-        if water_pump:
-            if temperature > 30:
-                # Update the water pump status to True (ON)
-                water_pumps_ref.child(zone_id).update({'is_on': True})
-            else:
-                # Update the water pump status to False (OFF)
-                water_pumps_ref.child(zone_id).update({'is_on': False})
+    for plant_data in plants_data.values():
+        plant = json.loads(plant_data)
+        ideal_temperature = plant.get('ideal_temperature')
+
+        # Check the temperature value and update water pump status
+        for _, capteur_temperature in capteur_temperature_values.items():
+            temperature = capteur_temperature['valeur']
+            for water_pump_key, water_pump_value in water_pumps.items():
+                if temperature > ideal_temperature:
+                    # Update the water pump status to True (ON)
+                    water_pumps_ref.child(water_pump_key).update({'is_on': True})
+                else:
+                    # Update the water pump status to False (OFF)
+                    water_pumps_ref.child(water_pump_key).update({'is_on': False})
 
     context = {
         'zone_id': zone_id,
@@ -411,8 +416,6 @@ def dash(request: HttpRequest, zone_id):
     }
 
     return render(request, 'dash.html', context)
-
-
 
 
 import json
