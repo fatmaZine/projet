@@ -191,7 +191,12 @@
         <a href="{% url 'zones' farm_id %}" class="view-btn">
             <button class="button-29 btn-action" type="button">Détails</button>
         </a>
-        <button class="button-29 btn-action" type="button">Supprimer</button>
+        <form method="POST" action="{% url 'supprimer_ferme' farm_id %}">
+            {% csrf_token %}
+            <input type="hidden" name="farm_id" value="{{ farm_id }}">
+            <button class="button-29 btn-action" type="submit">Supprimer</button>
+        </form>        
+
         <button class="button-29 btn-action" type="button">Modifier</button>
     </div>
 </div>

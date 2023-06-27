@@ -268,6 +268,61 @@ def supprimer_ferme(request, farm_id):
     return render(request, 'supprimer_ferme.html', {'farm': farm})
 
 
+import firebase_admin
+from firebase_admin import credentials
+from firebase_admin import db
+from pathlib import Path
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+def supprimer_ferme(request, farm_id):
+    # Check if Firebase app is already initialized
+    if not firebase_admin._apps:
+        cred = credentials.Certificate(BASE_DIR / 'firebase.json')
+        firebase_admin.initialize_app(cred, {'databaseURL': '<https://irrigatic-177d1-default-rtdb.firebaseio.com>'})
+
+    farms_ref = db.reference('farms')
+
+    if request.method == 'POST':
+        farms_ref.child(farm_id).delete()
+        return redirect('home')
+
+    farm_data = farms_ref.child(farm_id).get()
+
+    if farm_data is None:
+        return redirect('home')
+
+    farm = {
+        'id': farm_id,
+        'farm_name': farm_data.get('farm_name'),
+        'location': farm_data.get('location'),
+        'surface': farm_data.get('surface'),
+        'user': farm_data.get('user')
+    }
+
+    return render(request, 'supprimer_ferme.html', {'farm': farm})
+
+def supprimer_zone(request, zone_id):
+    zones_ref = db.reference('zones')
+
+    if request.method == 'POST':
+        zones_ref.child(zone_id).delete()
+        return redirect('home')
+
+    zone_data = zones_ref.child(zone_id).get()
+
+    if zone_data is None:
+        return redirect('home')
+
+    zone = {
+        'id': zone_id,
+        'zone_name': zone_data.get('zone_name'),
+        'location': zone_data.get('location'),
+        'area': zone_data.get('area'),
+        'farm_id': zone_data.get('farm_id'),
+    }
+
+    return render(request, 'supprimer_zone.html', {'zone': zone})
+
 
 
 import firebase_admin

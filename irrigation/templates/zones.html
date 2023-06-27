@@ -21,9 +21,9 @@
       display: flex;
     }
     
-    .zone-list {
+    .card-body {
       width: 300px;
-      height: 300px;
+      height: 400px;
       border-radius: 5px;
       margin:10px 20px;
       background-color: #85ad50;
@@ -84,6 +84,8 @@
       cursor: pointer;
       display: inline-flex;
       font-family: "JetBrains Mono",monospace;
+      margin-left: 40px;
+      margin-bottom: 40px;
       height: 48px;
       justify-content: center;
       line-height: 1;
@@ -185,7 +187,11 @@
                             <h6>Type de plantation: {{ zone_info.type_plantation|title}}</h6>
                             <h6>Nombre de portes: {{ zone_info.nombre_portes }}</h6>
                             
-                            {% comment %} <a href="{% url 'supprimer_zone' zone.zone_id %}">Supprimer</a> {% endcomment %}
+                            <form method="POST" action="{% url 'supprimer_zone' zone_id %}">
+                              {% csrf_token %}
+                              <input type="hidden" name="zone_id" value="{{ zone_id }}">
+                              <button type="submit" class="btn btn-primary">Supprimer</button>
+                            </form>
 
                             <a href="{% url 'dash' zone_id=zone_id %}" class="btn btn-primary">Details</a> {% comment %} dash {% endcomment %}
                             

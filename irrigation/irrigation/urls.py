@@ -31,6 +31,7 @@ urlpatterns = [
     path('mesespaces/',views.mesespaces,name='mesespaces'),
     path('ajouter_ferme/', views.ajouter_ferme, name='ajouter_ferme'),
     path('supprimer_ferme/<str:farm_id>/', views.supprimer_ferme, name='supprimer_ferme'),
+    path('supprimer_zone/<str:zone_id>/', views.supprimer_zone, name='supprimer_zone'),
     path('guide/', views.guide, name='guide'),
     path('farm/<str:farm_id>/zone/<str:zone_id>/', views.dash, name='dash'),
     path('dash/<str:zone_id>/', views.dash, name='dash'),
