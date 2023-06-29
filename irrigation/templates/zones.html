@@ -12,6 +12,18 @@
       background-color: #f5f5f5;
      
     }
+    #order {
+      min-height: 100vh;
+      display: flex;
+      align-items: left;
+      flex-direction: column;
+      padding: 60px;
+      font-size: 25px;
+  }
+   #btn-delete{ 
+    margin-top: 25px;
+    margin-bottom: 15px;
+   }
     
     .container {
       width: 100%;
@@ -23,7 +35,7 @@
     
     .card-body {
       width: 300px;
-      height: 400px;
+      height: 300px;
       border-radius: 5px;
       margin:10px 20px;
       background-color: #85ad50;
@@ -171,6 +183,9 @@
   <body>
   
    <main>
+        <nav>
+        {% include "mymenu.html" %}
+      </nav>
         <section id="order">
             <h1>Vos Zones</h1>
             <a href="{% url 'ajouter_zone' farm_id %}" class="btn btn-secondary">
@@ -190,10 +205,10 @@
                             <form method="POST" action="{% url 'supprimer_zone' zone_id %}">
                               {% csrf_token %}
                               <input type="hidden" name="zone_id" value="{{ zone_id }}">
-                              <button type="submit" class="btn btn-primary">Supprimer</button>
+                              <button type="submit" id="btn-delete" class="btn btn-primary">Supprimer</button>
                             </form>
 
-                            <a href="{% url 'dash' zone_id=zone_id %}" class="btn btn-primary">Details</a> {% comment %} dash {% endcomment %}
+                            <a href="{% url 'dash' zone_id=zone_id %}" id="btn-delete" class="btn btn-primary">Details</a> {% comment %} dash {% endcomment %}
                             
                         </div>
                     </div>
